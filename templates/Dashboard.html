@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<h2>Dashboard</h2>
+
+<form method="POST">
+
+<textarea name="mood" placeholder="How do you feel today?" required></textarea>
+
+<br><br>
+
+<button type="submit">Analyze Mood</button>
+
+</form>
+
+<h3>Mood: {{mood}}</h3>
+
+<p>{{suggestion}}</p>
+
+<h3>Recommended Doctors</h3>
+
+<ul>
+{% for d in doctor_list %}
+<li>{{d.name}} - {{d.phone}}</li>
+{% endfor %}
+</ul>
+
+<h3>Mood History</h3>
+
+<canvas id="chart"></canvas>
+
+<script>
+
+const labels={{labels|safe}}
+const values={{values|safe}}
+
+new Chart(document.getElementById("chart"),{
+
+type:"bar",
+
+data:{
+labels:labels,
+datasets:[{
+label:"Mood Count",
+data:values
+}]
+}
+
+})
+
+</script>
+
+<br>
+
+<a href="/chatbot">Open Chatbot</a>
+<br>
+<a href="/logout">Logout</a>
+
+</body>
+</html>
