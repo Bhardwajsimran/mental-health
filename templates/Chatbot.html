@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Chatbot</title>
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<h2>AI Mental Health Chatbot</h2>
+
+<div id="chatbox"></div>
+
+<input id="msg" placeholder="Type message">
+<button onclick="send()">Send</button>
+
+<script>
+
+function send(){
+
+let msg=document.getElementById("msg").value
+
+fetch("/chatbot-api",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({message:msg})
+
+})
+
+.then(r=>r.json())
+
+.then(data=>{
+
+document.getElementById("chatbox").innerHTML+=
+"<p><b>You:</b>"+msg+"</p>"
+
+document.getElementById("chatbox").innerHTML+=
+"<p><b>Bot:</b>"+data.reply+"</p>"
+
+})
+
+}
+
+</script>
+
+</body>
+</html>
